@@ -1,6 +1,7 @@
 import axios from "axios"
 
 const PEXELS_KEY = import.meta.env.VITE_APP_PEXELS_KEY
+console.log("pexels", PEXELS_KEY)
 const pexelsClient = axios.create({
   baseURL: "https://api.pexels.com",
   headers: {
@@ -9,22 +10,23 @@ const pexelsClient = axios.create({
 })
 
 export const getPexelsVideos = (query: string) => {
-  return new Promise((resolve, reject) => {
-    pexelsClient
-      .get(`/videos/search?query=${query}&per_page=20&size=small`)
-      .then(({ data }) => {
-        const videos = data.videos.map((video: any) => ({
-          id: video.id,
-          type: "StaticVideo",
-          src: video.video_files[0].link,
-          preview: video.image,
-          duration: 1,
-        }))
-        resolve(videos)
-      })
-      .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
-  })
+  return [
+    {
+      src : "/dist/respect.mp4",
+      id: 1448735,
+      type: "StaticVideo",
+      duration: 1,
+      "url": "https://www.pexels.com/video/video-of-forest-1448735/",
+      preview: "https://images.pexels.com/videos/1448735/free-video-1448735.jpg?fit=crop&w=1200&h=630&auto=compress&cs=tinysrgb",
+    },
+    {
+      src : "/dist/zlatan.mp4",
+      id: 144873,
+      type: "StaticVideo",
+      duration: 1,
+      "url": "https://www.pexels.com/video/video-of-forest-1448735/",
+      preview: "https://images.pexels.com/videos/1448735/free-video-1448735.jpg?fit=crop&w=1200&h=630&auto=compress&cs=tinysrgb",
+    }
+  ]
+  
 }

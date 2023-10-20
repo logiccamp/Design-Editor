@@ -21,7 +21,7 @@ function PanelsList() {
   const editorType = useEditorType()
   const PANEL_ITEMS = editorType === "VIDEO" ? VIDEO_PANEL_ITEMS : BASE_ITEMS
   return (
-    <Container>
+    <Container className="bg-blue">
       <Scrollable autoHide={true}>
         {PANEL_ITEMS.map((panelListItem) => (
           <PanelListItem

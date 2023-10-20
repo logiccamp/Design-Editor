@@ -66,7 +66,7 @@ export default function () {
   }
 
   const loadPexelsVideos = async () => {
-    const videos = (await getPexelsVideos("people")) as any
+    const videos = ( getPexelsVideos("people")) as any
     setVideos(videos)
   }
   React.useEffect(() => {

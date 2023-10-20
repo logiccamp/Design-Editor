@@ -7,12 +7,15 @@ import DropZone from "~/components/Dropzone"
 import { useEditor } from "@layerhub-io/react"
 import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { nanoid } from "nanoid"
+import { captureDuration, captureFrame, loadVideoResource } from "~/utils/video"
+import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 
 export default function () {
   const inputFileRef = React.useRef<HTMLInputElement>(null)
   const [uploads, setUploads] = React.useState<any[]>([])
   const editor = useEditor()
   const setIsSidebarOpen = useSetIsSidebarOpen()
+  const { scenes, setScenes, currentScene } = useDesignEditorContext()
 
   const handleDropFiles = (files: FileList) => {
     const file = files[0]
@@ -21,6 +24,7 @@ export default function () {
       id: nanoid(),
       url,
     }
+    console.log(upload, url)
     setUploads([...uploads, upload])
   }
 
@@ -31,7 +35,27 @@ export default function () {
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleDropFiles(e.target.files!)
   }
-
+  const addObject = React.useCallback(
+    async (options: any) => {
+      if (editor) {
+        const video = await loadVideoResource(options.src)
+        const frame = await captureFrame(video)
+        const duration = Number(await captureDuration(video))
+        editor.objects.add({ ...options, duration, preview: frame })
+        const updatedScenes = scenes.map((scn) => {
+          if (scn.id === currentScene?.id) {
+            return {
+              ...currentScene,
+              duration: duration * 1000 > currentScene.duration! ? duration * 1000 : currentScene.duration!,
+            }
+          }
+          return scn
+        })
+        setScenes(updatedScenes)
+      }
+    },
+    [editor, scenes, currentScene]
+  )
   const addImageToCanvas = (url: string) => {
     const options = {
       type: "StaticImage",
@@ -91,6 +115,7 @@ export default function () {
                     cursor: "pointer",
                   }}
                   onClick={() => addImageToCanvas(upload.url)}
+                  
                 >
                   <div>
                     <img width="100%" src={upload.url} alt="preview" />

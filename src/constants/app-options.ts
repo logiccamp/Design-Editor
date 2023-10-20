@@ -39,10 +39,10 @@ export const BASE_ITEMS = [
 ]
 
 export const VIDEO_PANEL_ITEMS = [
-  {
-    id: "templates",
-    name: "Templates",
-  },
+  // {
+  //   id: "templates",
+  //   name: "Templates",
+  // },
   {
     id: "customize",
     name: "Customize",
@@ -72,13 +72,13 @@ export const VIDEO_PANEL_ITEMS = [
     name: "Graphics",
   },
 
-  {
-    id: "pixabay",
-    name: "Pixabay",
-  },
+  // {
+  //   id: "pixabay",
+  //   name: "Pixabay",
+  // },
 ]
 
 export enum PanelType {
-  TEMPLATES = "Templates",
+  TEMPLATES = "Customize",
   BACKGROUND = "Background",
 }

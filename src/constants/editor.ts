@@ -3542,7 +3542,7 @@ export const sampleFrames = [
     width: 1024,
     height: 768,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-presentation-4x3.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 2,
@@ -3550,7 +3550,7 @@ export const sampleFrames = [
     width: 1920,
     height: 1080,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-presentation-16x9.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 3,
@@ -3558,7 +3558,7 @@ export const sampleFrames = [
     width: 1080,
     height: 1920,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-story.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 4,
@@ -3566,7 +3566,7 @@ export const sampleFrames = [
     width: 1080,
     height: 1080,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-post.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 5,
@@ -3574,7 +3574,7 @@ export const sampleFrames = [
     width: 1200,
     height: 1200,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-social-media-post.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 6,
@@ -3582,7 +3582,7 @@ export const sampleFrames = [
     width: 1702,
     height: 630,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-facebook-event-cover.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 7,
@@ -3590,7 +3590,7 @@ export const sampleFrames = [
     width: 1920,
     height: 1080,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-facebook-event-cover.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 8,
@@ -3598,7 +3598,7 @@ export const sampleFrames = [
     width: 2560,
     height: 1440,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-youtube-channel-art.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 9,
@@ -3606,7 +3606,7 @@ export const sampleFrames = [
     width: 1280,
     height: 720,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-youtube-thumbnail.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
   {
     id: 10,
@@ -3614,7 +3614,7 @@ export const sampleFrames = [
     width: 1200,
     height: 675,
     unit: "px",
-    preview: "https://ik.imagekit.io/scenify/social-twittter-post.svg",
+    preview: "https://static-cse.canva.com/_next/static/assets/og_image_w1200xh630_14e93f5ccb290fce0cf75496d13c77dd0e19518a12872b178b6deb14632c5f1f.png",
   },
 ]
 

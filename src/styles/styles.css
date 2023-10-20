@@ -40,3 +40,6 @@ input[type="number"] {
 .react-player video {
     max-height: 740px;
 }
+.bg-blue {
+    background-color : #0B0149
+}

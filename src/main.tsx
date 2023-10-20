@@ -3,6 +3,7 @@ import Provider from "./Provider"
 import Router from "./Router"
 import Container from "./Container"
 import "./styles/styles.css"
+import "./index.css"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider>

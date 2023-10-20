@@ -260,7 +260,7 @@ export default function () {
   return (
     // @ts-ignore
     <ThemeProvider theme={DarkTheme}>
-      <Container>
+      <Container style={{background : "#0B0149"}} className="bg-blue">
         <div style={{ color: "#ffffff" }}>
           <Logo size={36} />
         </div>
