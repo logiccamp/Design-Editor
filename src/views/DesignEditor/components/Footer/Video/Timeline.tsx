@@ -144,9 +144,14 @@ export default function () {
   return (
     <Block $style={{ display: "flex", alignItems: "center" }}>
       <TimelineControl />
-      <Block $style={{ background: "#ffffff" }}>
+      <Block $style={{ background: "#ffffff"}}>
         <div className={css({ display: "flex", alignItems: "center" })}>
           <Block
+          style={{
+            overflow : "auto",
+            width : "100%",
+            maxWidth : "700px"
+          }}
             id="TimelineItemsContainer"
             $style={{ display: "flex", alignItems: "center", position: "relative", padding: "1rem 0", flex: 1 }}
           >

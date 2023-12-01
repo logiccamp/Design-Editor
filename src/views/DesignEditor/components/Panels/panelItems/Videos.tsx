@@ -8,6 +8,7 @@ import useSetIsSidebarOpen from "~/hooks/useSetIsSidebarOpen"
 import { getPixabayVideos } from "~/services/pixabay"
 import { getPexelsVideos } from "~/services/pexels"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
+import { getBrandVideos } from "~/services/beentos"
 
 const loadVideoResource = (videoSrc: string): Promise<HTMLVideoElement> => {
   return new Promise(function (resolve, reject) {
@@ -25,6 +26,7 @@ const loadVideoResource = (videoSrc: string): Promise<HTMLVideoElement> => {
     video.addEventListener("error", function (error) {
       reject(error)
     })
+    // console.log("vide loaded")
   })
 }
 
@@ -60,13 +62,11 @@ export default function () {
   const setIsSidebarOpen = useSetIsSidebarOpen()
   const [videos, setVideos] = React.useState<any[]>([])
   const { scenes, setScenes, currentScene } = useDesignEditorContext()
-  const loadPixabayVideos = async () => {
-    const videos = await getPixabayVideos("people")
-    setVideos(videos)
-  }
+
 
   const loadPexelsVideos = async () => {
-    const videos = ( getPexelsVideos("people")) as any
+    const videos = await ( getBrandVideos()) as any
+    console.log("vidoes", videos)
     setVideos(videos)
   }
   React.useEffect(() => {
@@ -77,6 +77,7 @@ export default function () {
     async (options: any) => {
       if (editor) {
         const video = await loadVideoResource(options.src)
+        // console.log("video", video)
         const frame = await captureFrame(video)
         const duration = await captureDuration(video)
         editor.objects.add({ ...options, duration, preview: frame })

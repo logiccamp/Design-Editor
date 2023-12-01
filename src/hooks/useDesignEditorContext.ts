@@ -3,6 +3,8 @@ import { DesignEditorContext } from "~/contexts/DesignEditor"
 
 function useDesignEditorContext() {
   const {
+    brandId,
+    setBrandId,
     editorType,
     setEditorType,
     displayPlayback,
@@ -19,6 +21,10 @@ function useDesignEditorContext() {
     setContextMenuTimelineRequest,
     currentDesign,
     setCurrentDesign,
+    outputMessage,
+    setOutputMessage,
+    showLoader,
+    setShowLoader
   } = useContext(DesignEditorContext)
   return {
     editorType,
@@ -37,6 +43,12 @@ function useDesignEditorContext() {
     setContextMenuTimelineRequest,
     currentDesign,
     setCurrentDesign,
+    outputMessage,
+    setOutputMessage,
+    showLoader,
+    setShowLoader,
+    brandId,
+    setBrandId
   }
 }
 

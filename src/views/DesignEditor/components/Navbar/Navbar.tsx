@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { styled, ThemeProvider, DarkTheme } from "baseui"
 import { Theme } from "baseui/theme"
 import { Button, KIND } from "baseui/button"
@@ -13,6 +13,9 @@ import { loadTemplateFonts } from "~/utils/fonts"
 import { loadVideoEditorAssets } from "~/utils/video"
 import DesignTitle from "./DesignTitle"
 import { IDesign } from "~/interfaces/DesignEditor"
+import { httpGetWithToken, httpPostWithToken, httpPutWithToken } from "~/utils/http_utils"
+import { useParams } from "react-router-dom"
+
 
 const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
   height: "64px",
@@ -24,11 +27,34 @@ const Container = styled<"div", {}, Theme>("div", ({ $theme }) => ({
 }))
 
 export default function () {
-  const { setDisplayPreview, setScenes, setCurrentDesign, currentDesign, scenes } = useDesignEditorContext()
+  const params = useParams();
+  const { setDisplayPreview, setScenes, setCurrentDesign, currentDesign, scenes, setOutputMessage, setShowLoader } = useDesignEditorContext()
   const editorType = useEditorType()
   const editor = useEditor()
   const inputFileRef = React.useRef<HTMLInputElement>(null)
 
+  useEffect(()=> {
+    if(params.projectid){
+      getProject();
+    }
+  }, [editor])
+  const getProject = async () => {
+    // const project = await httpGetWithToken("editor/"+params.projectid)
+    const project:any = await httpGetWithToken("editor/654421119a9c29a97d2e1c9b")
+    if(project.error){
+
+    }else{
+      try {
+       if(editor){
+          await handleImportTemplate(JSON.parse(project?.data.data?.content))
+          console.log("json", JSON.parse(project?.data.data?.content))
+        }
+      } catch (error) {
+
+      }
+    }
+    // console.log("project",JSON.parse(project.data.data.content)) 
+  }
   const parseGraphicJSON = () => {
     const currentScene = editor.scene.exportToJSON()
 
@@ -99,7 +125,7 @@ export default function () {
     }
   }
 
-  const parseVideoJSON = () => {
+  const parseVideoJSON = (action = "export") => {
     const currentScene = editor.scene.exportToJSON()
     const updatedScenes = scenes.map((scn) => {
       if (scn.id === currentScene.id) {
@@ -127,28 +153,51 @@ export default function () {
         metadata: {},
         preview: "",
       }
-      makeDownload(videoTemplate)
+      makeDownload(videoTemplate, action)
     } else {
       console.log("NO CURRENT DESIGN")
     }
+    // process.
   }
 
-  const makeDownload = (data: Object) => {
+  const makeDownload = async (data: Object, action = "export") => {
+    setShowLoader(true)
+    setOutputMessage("")
+   
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+    // alert(dataStr)
+    if(action == "save"){
+        // const save = await httpPostWithToken("editor", {
+          const save = await httpPutWithToken("editor/"+params.projectid, {
+        name : "Name",
+        content : JSON.stringify(data)
+      })  
+      
+      setShowLoader(false)
+      // const resp = await httpGetWithToken("editor/"+"654421119a9c29a97d2e1c9b")
+      console.log(
+        'save', save
+      )
+      setOutputMessage("Project saved successfully")
+      return false;
+    }
     const a = document.createElement("a")
     a.href = dataStr
     a.download = "template.json"
     a.click()
+    setShowLoader(false)
+
   }
 
-  const makeDownloadTemplate = async () => {
+  const makeDownloadTemplate = async (action = "export") => {
     if (editor) {
       if (editorType === "GRAPHIC") {
         return parseGraphicJSON()
       } else if (editorType === "PRESENTATION") {
         return parsePresentationJSON()
       } else {
-        return parseVideoJSON()
+        // alert("here")
+        return parseVideoJSON(action)
       }
     }
   }
@@ -228,6 +277,7 @@ export default function () {
       } else if (data.type === "VIDEO") {
         template = await loadVideoTemplate(data)
       }
+      // console.log("error is here")
       //   @ts-ignore
       setScenes(template.scenes)
       //   @ts-ignore
@@ -291,7 +341,21 @@ export default function () {
 
           <Button
             size="compact"
-            onClick={makeDownloadTemplate}
+            onClick={()=>makeDownloadTemplate("save")}
+            kind={KIND.tertiary}
+            overrides={{
+              StartEnhancer: {
+                style: {
+                  marginRight: "4px",
+                },
+              },
+            }}
+          >
+            Save
+          </Button>
+          <Button
+            size="compact"
+            onClick={()=>makeDownloadTemplate()}
             kind={KIND.tertiary}
             overrides={{
               StartEnhancer: {

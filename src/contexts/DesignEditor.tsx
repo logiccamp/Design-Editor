@@ -4,6 +4,8 @@ import { ContextMenuTimelineRequest, DesignType, IDesign } from "~/interfaces/De
 
 interface ISceneEditorContext {
   scenes: IScene[]
+  showLoader : boolean
+  setShowLoader: React.Dispatch<React.SetStateAction<boolean>>
   setScenes: (value: ((prevState: IScene[]) => IScene[]) | IScene[]) => void
   currentScene: IScene | null
   setCurrentScene: React.Dispatch<React.SetStateAction<IScene | null>>
@@ -23,11 +25,21 @@ interface ISceneEditorContext {
   setMaxTime: React.Dispatch<React.SetStateAction<number>>
   contextMenuTimelineRequest: ContextMenuTimelineRequest
   setContextMenuTimelineRequest: React.Dispatch<React.SetStateAction<ContextMenuTimelineRequest>>
+  outputMessage : string
+  setOutputMessage: React.Dispatch<React.SetStateAction<string>>
+  brandId : string
+  setBrandId: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const DesignEditorContext = React.createContext<ISceneEditorContext>({
   scenes: [],
   setScenes: () => {},
+  outputMessage: "",
+  setOutputMessage: () => {},
+  brandId: "",
+  setBrandId: () => {},
+  showLoader: false,
+  setShowLoader: () => {},
   currentScene: null,
   setCurrentScene: () => {},
   currentDesign: {
@@ -66,6 +78,9 @@ export const DesignEditorContext = React.createContext<ISceneEditorContext>({
 
 export const DesignEditorProvider = ({ children }: { children: React.ReactNode }) => {
   const [scenes, setScenes] = React.useState<IScene[]>([])
+  const [brandId, setBrandId] = React.useState<string>("")
+  const [outputMessage, setOutputMessage] = React.useState<string>("")
+  const [showLoader, setShowLoader] = React.useState<boolean>(false)
   const [currentScene, setCurrentScene] = React.useState<IScene | null>(null)
   const [currentDesign, setCurrentDesign] = React.useState<IDesign>({
     id: "",
@@ -112,6 +127,12 @@ export const DesignEditorProvider = ({ children }: { children: React.ReactNode }
     setMaxTime,
     contextMenuTimelineRequest,
     setContextMenuTimelineRequest,
+    outputMessage,
+    setOutputMessage,
+    showLoader,
+    setShowLoader,
+    brandId,
+    setBrandId
   }
   return <DesignEditorContext.Provider value={context}>{children}</DesignEditorContext.Provider>
 }

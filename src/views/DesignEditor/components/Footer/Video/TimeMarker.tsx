@@ -52,6 +52,7 @@ export default function () {
     }
 
     const onStop = () => {
+      
       window.removeEventListener("mousemove", onDrag)
       window.removeEventListener("mouseup", onStop)
     }

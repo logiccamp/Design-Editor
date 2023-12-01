@@ -17,10 +17,12 @@ interface IAppContext {
     setActiveSubMenu: (option: string) => void;
     currentTemplate: any;
     setCurrentTemplate: any;
+    notAuth : boolean
 }
 
 export const AppContext = createContext<IAppContext>({
     isMobile: false,
+    notAuth : false,
     setIsMobile: () => {},
     templates: [],
     setTemplates: () => {},
@@ -44,6 +46,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const [activePanel, setActivePanel] = useState<PanelType>(PanelType.TEMPLATES);
     const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
     const [currentTemplate, setCurrentTemplate] = useState(null);
+    useState
     const context = {
         isMobile,
         setIsMobile,
