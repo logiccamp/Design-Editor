@@ -15,7 +15,11 @@ export default function () {
   const addObject = React.useCallback(
     (item: any) => {
       if (editor) {
-        editor.objects.add(item)
+        const options = {
+          type: "StaticImage",
+          src: item,
+        }
+        editor.objects.add(options)
       }
     },
     [editor]
@@ -56,7 +60,7 @@ export default function () {
         <Block>
           <Block $style={{ display: "grid", gap: "8px", padding: "1.5rem", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
             {graphics.map((graphic, index) => (
-              <ImageItem onClick={() => addObject(graphic)} key={index} preview={graphic.preview} />
+              <ImageItem onClick={() => addObject(graphic.url)} key={index} preview={graphic.url} />
             ))}
           </Block>
         </Block>

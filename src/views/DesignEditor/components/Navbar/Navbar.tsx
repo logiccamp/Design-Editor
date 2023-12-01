@@ -33,21 +33,25 @@ export default function () {
   const editor = useEditor()
   const inputFileRef = React.useRef<HTMLInputElement>(null)
 
-  useEffect(()=> {
-    if(params.projectid){
+  useEffect(() => {
+    if (params.projectid) {
       getProject();
     }
   }, [editor])
   const getProject = async () => {
-    // const project = await httpGetWithToken("editor/"+params.projectid)
-    const project:any = await httpGetWithToken("editor/654421119a9c29a97d2e1c9b")
-    if(project.error){
+    const project: any = await httpGetWithToken("editor/" + params.projectid)
+    // const project: any = await httpGetWithToken("editor/654421119a9c29a97d2e1c9b")
+    if (project.error) {
 
-    }else{
+    } else {
       try {
-       if(editor){
+        if (editor) {
           await handleImportTemplate(JSON.parse(project?.data.data?.content))
-          console.log("json", JSON.parse(project?.data.data?.content))
+          const obj: any = JSON.parse(project?.data.data?.content)
+          const name = obj.name;
+          setCurrentDesign({ ...currentDesign, name })
+
+
         }
       } catch (error) {
 
@@ -163,21 +167,18 @@ export default function () {
   const makeDownload = async (data: Object, action = "export") => {
     setShowLoader(true)
     setOutputMessage("")
-   
+
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
     // alert(dataStr)
-    if(action == "save"){
-        // const save = await httpPostWithToken("editor", {
-          const save = await httpPutWithToken("editor/"+params.projectid, {
-        name : "Name",
-        content : JSON.stringify(data)
-      })  
-      
+    if (action == "save") {
+      // const save = await httpPostWithToken("editor", {
+      const save = await httpPutWithToken("editor/" + params.projectid, {
+        name: currentDesign.name,
+        content: JSON.stringify(data)
+      })
+
       setShowLoader(false)
-      // const resp = await httpGetWithToken("editor/"+"654421119a9c29a97d2e1c9b")
-      console.log(
-        'save', save
-      )
+
       setOutputMessage("Project saved successfully")
       return false;
     }
@@ -310,7 +311,7 @@ export default function () {
   return (
     // @ts-ignore
     <ThemeProvider theme={DarkTheme}>
-      <Container style={{background : "#0B0149"}} className="bg-blue">
+      <Container style={{ background: "#0B0149" }} className="bg-blue">
         <div style={{ color: "#ffffff" }}>
           <Logo size={36} />
         </div>
@@ -341,7 +342,7 @@ export default function () {
 
           <Button
             size="compact"
-            onClick={()=>makeDownloadTemplate("save")}
+            onClick={() => makeDownloadTemplate("save")}
             kind={KIND.tertiary}
             overrides={{
               StartEnhancer: {
@@ -355,7 +356,7 @@ export default function () {
           </Button>
           <Button
             size="compact"
-            onClick={()=>makeDownloadTemplate()}
+            onClick={() => makeDownloadTemplate()}
             kind={KIND.tertiary}
             overrides={{
               StartEnhancer: {

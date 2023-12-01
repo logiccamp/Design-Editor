@@ -1,5 +1,31 @@
 export const graphics = [
   {
+    id: 1,
+    width: 3000,
+    height: 3000,
+    url: "/emojis/grin.png",
+    photographer: "Beentos",
+    photographer_url: "beentos.com",
+    photographer_id: 1883853,
+    avg_color: "#6B7874",
+    liked: false,
+    alt: "Emoji",
+  },
+  {
+    id: 2,
+    width: 3000,
+    height: 3000,
+    url: "/emojis/joy.png",
+    photographer: "Beentos",
+    photographer_url: "beentos.com",
+    photographer_id: 1883853,
+    avg_color: "#6B7874",
+    liked: false,
+    alt: "Emoji",
+  },
+]
+export const graphics1 = [
+  {
     left: 0,
     top: 0,
     width: 60,

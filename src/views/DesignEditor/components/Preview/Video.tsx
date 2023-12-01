@@ -7,11 +7,12 @@ import useDesignEditorPages from "~/hooks/useDesignEditorScenes"
 import useDesignEditorContext from "~/hooks/useDesignEditorContext"
 import { IDesign } from "~/interfaces/DesignEditor"
 import { httpPostWithToken } from "~/utils/http_utils"
+import { downloadIcon } from "~/images/images"
 
 function Video() {
   const editor = useEditor()
   const pages = useDesignEditorPages()
-  const { scenes, currentDesign } = useDesignEditorContext()
+  const { scenes, currentDesign, setOutputMessage } = useDesignEditorContext()
   const [loading, setLoading] = React.useState(true)
   const [state, setState] = React.useState({
     video: "",
@@ -48,43 +49,12 @@ function Video() {
       preview: "",
     }
     console.log("hello world", videoTemplate)
-    await httpPostWithToken("video-editing/edit-video", videoTemplate)
-    // const clips = pages.map((page) => {
-    //   const currentTemplate = editor.scene.exportToJSON()
-    //   if (page.id === currentTemplate.id) {
-    //     return {
-    //       duration: page.duration! / 1000,
-    //       layers: currentTemplate.layers,
-    //     }
-    //   }
-    //   return {
-    //     duration: 5,
-    //     layers: page.layers,
-    //   }
-    // })
-
-    // const options = {
-    //   outPath: "./position.mp4",
-    //   verbose: false,
-    //   duration: 5,
-    //   fps: 25,
-    //   dimension: template.frame,
-    //   clips: clips,
-    // }
-    // console.log(options)
-    // fetch("https://render.layerhub.io/render", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(options),
-    // })
-    //   .then((res) => {
-    //     return res.json()
-    //   })
-    //   .then((res) => {
-    //     setState({ video: res.url })
-    //     setLoading(false)
-    //   })
-    //   .catch((err) => console.error(err))
+    const response = await httpPostWithToken("video-editing/edit-video", videoTemplate)
+    // console.log(response)
+    const url = response.data.secureUrl;
+    setOutputMessage("Project exported successfully")
+    setLoading(false)
+    setState({ video: url })
   }, [editor])
 
   React.useEffect(() => {
@@ -96,15 +66,27 @@ function Video() {
       {loading ? (
         <Loading text="Generating output" />
       ) : (
-        <ReactPlayer
-          muted={false}
-          className="react-player"
-          width={"100%"}
-          height={"100%"}
-          controls
-          autoPlay
-          url={state.video}
-        />
+        <>
+          {
+            state.video && <a style={{
+              position: "fixed",
+              bottom: 10,
+              right: 10,
+            }} href={state.video} ><img style={{
+              height: "50px",
+              width: "50px"
+            }} src={downloadIcon} /></a>
+          }
+          <ReactPlayer
+            muted={false}
+            className="react-player"
+            width={"100%"}
+            height={"100%"}
+            controls
+            autoPlay
+            url={state.video}
+          />
+        </>
       )}
     </Block>
   )

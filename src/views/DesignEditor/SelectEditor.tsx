@@ -11,7 +11,7 @@ import ButtonLoader from "~/utils/button_loader"
 export default function () {
   const [selectedEditor, setSelectedEditor] = React.useState<DesignType>("VIDEO")
   const { setEditorType } = useDesignEditorContext()
-  useEffect(()=> {
+  useEffect(() => {
     setTimeout(() => {
       setEditorType(selectedEditor)
     }, 3000);
@@ -28,10 +28,10 @@ export default function () {
       }}
     >
       <Block>
-      <div className="min-h-[100px] flex flex-col min-w-[200px] justify-center items-center bg-blue text-center shadow w-[95%] rounded shadow max-w-[200px]">
+        {/* <div className="min-h-[100px] flex flex-col min-w-[200px] justify-center items-center bg-blue text-center shadow w-[95%] rounded shadow max-w-[200px]">
             <ButtonLoader />
             <p className="text-center text-white">Please wait</p>
-        </div>
+        </div> */}
       </Block>
     </Block>
   )
